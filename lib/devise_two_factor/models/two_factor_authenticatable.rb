@@ -1,4 +1,4 @@
-require 'attr_encrypted'
+require 'symmetric-encryption'
 require 'rotp'
 
 module Devise
@@ -8,14 +8,14 @@ module Devise
       include Devise::Models::DatabaseAuthenticatable
 
       included do
-        attr_encrypted :otp_secret, :key  => self.otp_secret_encryption_key,
-                                    :mode => :per_attribute_iv_and_salt unless self.attr_encrypted?(:otp_secret)
+        attr_encrypted :otp_secret, :random_iv => true if defined?(ActiveRecord)
+        validates :encrypted_otp_secret, symmetric_encryption: true, allow_nil: true
 
         attr_accessor :otp_attempt, :otp_required
       end
 
       def self.required_fields(klass)
-        [:encrypted_otp_secret, :encrypted_otp_secret_iv, :encrypted_otp_secret_salt, :consumed_timestep]
+        [:encrypted_otp_secret, :consumed_timestep]
       end
 
       # This defaults to the model's otp_secret
@@ -37,7 +37,7 @@ module Devise
       def current_otp
         otp.at(Time.now)
       end
-      
+
       def otp_required?
         !!otp_required
       end
