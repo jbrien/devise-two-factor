@@ -5,7 +5,7 @@ class TwoFactorAuthenticatableDouble
   include ::ActiveModel::Validations::Callbacks
   extend  ::Devise::Models
 
-  devise :two_factor_authenticatable, :otp_secret_encryption_key => 'test-key'
+  devise :two_factor_authenticatable
 
   attr_accessor :consumed_timestep
 

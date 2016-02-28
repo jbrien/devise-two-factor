@@ -38,10 +38,6 @@ module Devise
         otp.at(Time.now)
       end
 
-      def otp_required?
-        !!otp_required
-      end
-
       # ROTP's TOTP#timecode is private, so we duplicate it here
       def current_otp_timestep
          Time.now.utc.to_i / otp.interval

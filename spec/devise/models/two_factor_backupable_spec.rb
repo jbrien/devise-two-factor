@@ -4,8 +4,7 @@ class TwoFactorBackupableDouble
   include ::ActiveModel::Validations::Callbacks
   extend  ::Devise::Models
 
-  devise :two_factor_authenticatable, :two_factor_backupable,
-         :otp_secret_encryption_key => 'test-key'
+  devise :two_factor_authenticatable, :two_factor_backupable
 
   attr_accessor :otp_backup_codes
 end

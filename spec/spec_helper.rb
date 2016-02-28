@@ -20,6 +20,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'rspec'
 require 'faker'
 require 'timecop'
+require 'symmetric-encryption'
 require 'devise-two-factor'
 require 'devise_two_factor/spec_helpers'
 
